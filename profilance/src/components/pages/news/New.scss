@@ -1,5 +1,15 @@
 @import "../../../styles/variables.scss";
 
+input, textarea {
+  outline: none;
+  padding: 0 4px;
+  border: 1px solid black;
+}
+
+textarea {
+  max-height: 128px;
+}
+
 .search {
   margin: 24px auto;
   width: 400px;
@@ -12,7 +22,7 @@
   flex-direction: column;
   width: 400px;
   margin: 0 auto 24px auto;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 12px;
   padding: 8px;
 }
@@ -34,14 +44,16 @@
   flex-direction: column;
   width: 400px;
   margin: 0 auto 24px auto;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 12px;
   padding: 0 8px 8px 8px;
 }
 
 .add_news_title, .add_news_description, .add_news_btn, .control_btn {
-  border-radius: 12px;
   margin-top: 8px;
+  border: 1px solid black;
+  border-radius: 12px;
+  outline: none;
 }
 
 .add_news_btn {

@@ -22,3 +22,20 @@
     margin-right: 8px;
   }
 }
+
+.header_auth_button {
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+
+.header_auth_button:hover {
+  color: #1890ff;
+}
+
+.header_menu_button {
+  color: black;
+
+  a {
+    color: black;
+  }
+}

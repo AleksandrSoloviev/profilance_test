@@ -34,37 +34,38 @@ class News extends React.Component {
             data: new Date()
         };
         this.props.addNews(news);
+        document.getElementById('title').value = "";
+        document.getElementById('description').value = "";
     };
 
     renderAddNews = () => {
-        if(this.props.rights === "none") {
-            return null;
+        if(this.props.rights === "user") {
+            return(
+                <div className="add_news">
+                    <input
+                        id="title"
+                        type="text"
+                        name="quantity"
+                        placeholder="Заголовок"
+                        className="add_news_title"
+                    />
+                    <textarea
+                        id="description"
+                        name="quantity"
+                        aria-multiline={"true"}
+                        placeholder="Новость"
+                        className="add_news_description"
+                    />
+                    <button
+                        onClick={this.onAddSubmit}
+                        className="add_news_btn"
+                    >
+                        Добавить
+                    </button>
+                </div>
+            )
         }
-        else return(
-            <div className="add_news">
-                <input
-                    id="title"
-                    type="text"
-                    name="quantity"
-                    placeholder="Заголовок"
-                    className="add_news_title"
-                />
-                <input
-                    id="description"
-                    type="text"
-                    name="quantity"
-                    placeholder="Новость"
-                    className="add_news_description"
-                />
-                <button
-                    onClick={this.onAddSubmit}
-                    className="add_news_btn"
-                >
-                    Добавить
-                </button>
-
-            </div>
-        )
+        else return null;
     };
 
     deleteNews = (position) => {
@@ -84,7 +85,6 @@ class News extends React.Component {
         };
         this.deleteNews(position);
         this.props.deleteNews(news);
-        this.renderNews();
     };
 
     renderControlButton = (position, item) => {
@@ -121,33 +121,15 @@ class News extends React.Component {
     };
 
     renderNews = () => {
-        if(this.props.news) {
-            if(this.props.rights === "none") {
-                return(
-                    this.props.news.filter(searchingFor(this.state.term)).map((item, key) => {
-                        if(item.approve) {
-                            return (
-                                <div key={key} className="news">
-                                    <div className="news_title">{item.title}</div>
-                                    <div className="news_description">{item.description}</div>
-                                    <div>{item.data.toString()}</div>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })
-                )
-            }
-            else return (
-
+        if(this.props.rights === "none") {
+            return(
                 this.props.news.filter(searchingFor(this.state.term)).map((item, key) => {
-                    if (item.title) {
+                    if(item.approve) {
                         return (
                             <div key={key} className="news">
                                 <div className="news_title">{item.title}</div>
                                 <div className="news_description">{item.description}</div>
                                 <div>{item.data.toString()}</div>
-                                {this.props.rights === "admin" ? this.renderControlButton(key, item) : null}
                             </div>
                         )
                     }
@@ -155,6 +137,22 @@ class News extends React.Component {
                 })
             )
         }
+        else return (
+
+            this.props.news.filter(searchingFor(this.state.term)).map((item, key) => {
+                if (item.title) {
+                    return (
+                        <div key={key} className="news">
+                            <div className="news_title">{item.title}</div>
+                            <div className="news_description">{item.description}</div>
+                            <div>{item.data.toString()}</div>
+                            {this.props.rights === "admin" ? this.renderControlButton(key, item) : null}
+                        </div>
+                    )
+                }
+                return null;
+            })
+        )
     };
 
     render() {

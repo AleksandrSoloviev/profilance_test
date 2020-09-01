@@ -12,19 +12,45 @@ class Header extends React.Component {
     renderButtons = () => {
         return (
             <div className="header">
-                <div>
+                <div className="header_menu_button">
                     <Link to={PATH.MAIN_PAGE}>
                         Главная
                     </Link>
                 </div>
-                <div>
+                <div className="header_menu_button">
                     <Link to={PATH.NEWS_PAGE}>
                         Новости
                     </Link>
                 </div>
-                <div onClick={this.props.toggleModal}>Вход</div>
+                {this.renderAuthButton()}
             </div>
         )
+    };
+
+    renderAuthButton = () => {
+        if(this.props.isAuth) {
+            return (
+                <div
+                    onClick={()=>this.props.auth("","")}
+                    className="header_auth_button"
+                >
+                    Выход
+                </div>
+            )
+        }
+        return (
+            <div
+                onClick={this.props.toggleModal}
+                className="header_auth_button"
+            >
+                Вход
+            </div>
+        )
+    };
+
+    resetTextFields = () => {
+        document.getElementById('Login').value = "";
+        document.getElementById('Password').value = "";
     };
 
     onConfirm = () => {
@@ -34,10 +60,12 @@ class Header extends React.Component {
         if(login === "user" && password === "user") {
             this.props.auth(login, password);
             this.props.toggleModal();
+            this.resetTextFields();
         }
         else if(login === "admin" && password === "admin") {
             this.props.auth(login, password);
             this.props.toggleModal();
+            this.resetTextFields();
         }
         else {
             notification.error({
