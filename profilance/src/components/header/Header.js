@@ -2,7 +2,7 @@ import React from "react";
 import './Header.scss'
 import {Link} from "react-router-dom";
 import {PATH} from "../../routes/paths";
-import { Modal as AntdModal } from "antd";
+import {Modal as AntdModal, notification} from "antd";
 import {connect} from "react-redux";
 import {auth, toggleModal} from "../../store/actions";
 import "antd/dist/antd.css"
@@ -28,11 +28,23 @@ class Header extends React.Component {
     };
 
     onConfirm = () => {
-        this.props.auth(
-            document.getElementById('Login').value,
-            document.getElementById('Password').value
-        );
-        this.props.toggleModal();
+        let login = document.getElementById('Login').value;
+        let password = document.getElementById('Password').value;
+
+        if(login === "user" && password === "user") {
+            this.props.auth(login, password);
+            this.props.toggleModal();
+        }
+        else if(login === "admin" && password === "admin") {
+            this.props.auth(login, password);
+            this.props.toggleModal();
+        }
+        else {
+            notification.error({
+                message: 'Ошибка авторизации',
+                description: "Такого пользователя не существует",
+            });
+        }
     };
 
     renderModalContent = () => {
