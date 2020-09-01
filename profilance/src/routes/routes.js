@@ -1,4 +1,4 @@
-import { PATH } from "./paths.";
+import { PATH } from "./paths";
 import Main from "../components/pages/main/Main";
 import News from "../components/pages/news/News";
 

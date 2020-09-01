@@ -3,10 +3,29 @@ import {connect} from "react-redux";
 import {addNews, deleteNews} from "../../../store/actions";
 import "./New.scss"
 
+function searchingFor(term) {
+    return function (x) {
+        if(x.title) {
+            return x.title.toLowerCase().includes(term.toLowerCase()) || !term;
+        }
+    }
+}
+
 class News extends React.Component {
-    state = {
-        search: ""
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            term: ""
+        };
+
+        this.searchHandler = this.searchHandler.bind(this);
+    }
+
+    searchHandler(event) {
+        this.setState({term: event.target.value});
+
+    }
 
     onAddSubmit = () => {
         const news = {
@@ -88,29 +107,14 @@ class News extends React.Component {
         )
     };
 
-    onChange = e => {
-        this.setState({ search: e.target.value });
-    };
-
-    // searchInput = () => {
-    //     const { search } = this.state;
-    //     const news = this.props.news;
-    //     if(news){
-    //        const filteredNews = news.filter(item =>
-    //             item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
-    //     );
-    //     }
-    // };
-
     renderSearchInput = () => {
-        // this.searchInput();
         return(
             <>
                 <input
                     className="search"
                     placeholder="Поиск..."
                     type="text"
-                    onChange={this.onChange}
+                    onChange={this.searchHandler}
                 />
             </>
         )
@@ -120,8 +124,7 @@ class News extends React.Component {
         if(this.props.news) {
             if(this.props.rights === "none") {
                 return(
-
-                    this.props.news.map((item, key) => {
+                    this.props.news.filter(searchingFor(this.state.term)).map((item, key) => {
                         if(item.approve) {
                             return (
                                 <div key={key} className="news">
@@ -137,7 +140,7 @@ class News extends React.Component {
             }
             else return (
 
-                this.props.news.map((item, key) => {
+                this.props.news.filter(searchingFor(this.state.term)).map((item, key) => {
                     if (item.title) {
                         return (
                             <div key={key} className="news">
@@ -152,8 +155,6 @@ class News extends React.Component {
                 })
             )
         }
-
-
     };
 
     render() {

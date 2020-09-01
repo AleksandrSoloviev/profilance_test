@@ -1,7 +1,7 @@
 import React from "react";
 import './Header.scss'
 import {Link} from "react-router-dom";
-import {PATH} from "../../routes/paths.";
+import {PATH} from "../../routes/paths";
 import { Modal as AntdModal } from "antd";
 import {connect} from "react-redux";
 import {auth, toggleModal} from "../../store/actions";
