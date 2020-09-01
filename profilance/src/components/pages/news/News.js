@@ -92,18 +92,18 @@ class News extends React.Component {
         this.setState({ search: e.target.value });
     };
 
-    searchInput = () => {
-        const { search } = this.state;
-        const news = this.props.news;
-        if(news){
-           const filteredNews = news.filter(item =>
-                item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
-        );
-        }
-    };
+    // searchInput = () => {
+    //     const { search } = this.state;
+    //     const news = this.props.news;
+    //     if(news){
+    //        const filteredNews = news.filter(item =>
+    //             item.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
+    //     );
+    //     }
+    // };
 
     renderSearchInput = () => {
-        this.searchInput();
+        // this.searchInput();
         return(
             <>
                 <input
@@ -118,20 +118,38 @@ class News extends React.Component {
 
     renderNews = () => {
         if(this.props.news) {
-            return(
-            this.props.news.map((item, key) => {
-                if (item.title) {
-                    return (
-                        <div key={key} className="news">
-                            <div className="news_title">{item.title}</div>
-                            <div className="news_description">{item.description}</div>
-                            <div>{item.data.toString()}</div>
-                            {this.props.rights === "admin" ? this.renderControlButton(key, item) : null}
-                        </div>
-                    )
-                }
-                return null;
-            })
+            if(this.props.rights === "none") {
+                return(
+
+                    this.props.news.map((item, key) => {
+                        if(item.approve) {
+                            return (
+                                <div key={key} className="news">
+                                    <div className="news_title">{item.title}</div>
+                                    <div className="news_description">{item.description}</div>
+                                    <div>{item.data.toString()}</div>
+                                </div>
+                            )
+                        }
+                        return null;
+                    })
+                )
+            }
+            else return (
+
+                this.props.news.map((item, key) => {
+                    if (item.title) {
+                        return (
+                            <div key={key} className="news">
+                                <div className="news_title">{item.title}</div>
+                                <div className="news_description">{item.description}</div>
+                                <div>{item.data.toString()}</div>
+                                {this.props.rights === "admin" ? this.renderControlButton(key, item) : null}
+                            </div>
+                        )
+                    }
+                    return null;
+                })
             )
         }
 
