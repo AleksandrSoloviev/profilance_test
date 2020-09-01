@@ -1,0 +1,49 @@
+@import "../../../styles/variables.scss";
+
+.search {
+  margin: 24px auto;
+  width: 400px;
+  border-radius: 12px;
+  display: flex;
+}
+
+.news {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto 24px auto;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.news_title {
+  margin: 0 auto;
+  font-family: $font-oswald;
+  font-size: $font-size-16;
+}
+
+.news_description {
+  margin: 0 auto;
+  font-family: $font-SansPro;
+  font-size: $font-size-14;
+}
+
+.add_news {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 0 auto 24px auto;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 0 8px 8px 8px;
+}
+
+.add_news_title, .add_news_description, .add_news_btn, .control_btn {
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.add_news_btn {
+  background-color: white;
+}

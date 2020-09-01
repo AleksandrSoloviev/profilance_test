@@ -1,0 +1,9 @@
+@import "../../../styles/variables.scss";
+
+
+.greeting {
+    font-family: $font-oswald;
+    font-size: $font-size-36;
+    text-align: center;
+    margin-top: 24px;
+}
