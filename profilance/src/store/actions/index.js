@@ -28,23 +28,9 @@ export function auth(login, password) {
     }
 }
 
-export function addNews(data) {
+export function updateNews(data) {
     return {
-        type: "ADD_NEWS",
-        data
-    }
-}
-
-export function deleteNews(data) {
-    return {
-        type: "DELETE_NEWS",
-        data
-    }
-}
-
-export function filteredNews(data) {
-    return {
-        type: "FILTERED_NEWS",
+        type: "UPDATE_NEWS",
         data
     }
 }

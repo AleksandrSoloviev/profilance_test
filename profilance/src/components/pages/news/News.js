@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {addNews, deleteNews} from "../../../store/actions";
+import {updateNews} from "../../../store/actions";
 import "./New.scss"
 
 function searchingFor(term) {
@@ -33,7 +33,7 @@ class News extends React.Component {
             description: document.getElementById('description').value,
             data: new Date()
         };
-        this.props.addNews(news);
+        this.props.updateNews(news);
         document.getElementById('title').value = "";
         document.getElementById('description').value = "";
     };
@@ -71,7 +71,7 @@ class News extends React.Component {
     deleteNews = (position) => {
         let news = this.props.news;
         news.splice(position, 1);
-        this.props.deleteNews(news);
+        this.props.updateNews(news);
         this.renderNews();
     };
 
@@ -84,7 +84,8 @@ class News extends React.Component {
             approve: true
         };
         this.deleteNews(position);
-        this.props.deleteNews(news);
+        this.props.updateNews(news);
+
     };
 
     renderControlButton = (position, item) => {
@@ -177,8 +178,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        addNews: (data) => dispatch(addNews(data)),
-        deleteNews: (data) => dispatch(deleteNews(data)),
+        updateNews: (data) => dispatch(updateNews(data)),
     }
 }
 

@@ -12,19 +12,9 @@ const initialState = {
 
 export default function newsReducer(state = initialState, action) {
     switch (action.type) {
-        case "ADD_NEWS":
-            return {
-                ...state,
-                news: [...state.news, action.data]
-            };
-        case "DELETE_NEWS":
+        case "UPDATE_NEWS":
             return {
                 news: [...state.news, action.data]
-            };
-        case "FILTERED_NEWS":
-            return {
-                ...state,
-                filteredNews: [...state.filteredNews, action.data]
             };
         default:
             return state
